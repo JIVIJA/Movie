@@ -12,11 +12,12 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-
+    let window: UIWindow = UIWindow(frame: UIScreen.main.bounds)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    
+        window.rootViewController = ParentNVC(rootViewController: SearchVC(nibName: "SearchVC", bundle: Bundle.main))
+        window.makeKeyAndVisible()
         return true
     }
 
