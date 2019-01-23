@@ -24,7 +24,6 @@ class HomeVC: ParentVC {
         }
     }
     
-    let disposeBag = DisposeBag()
     var managedObjectContext: NSManagedObjectContext!
     let cellPercentWidth: CGFloat = 0.70
     let cellPercentHeight: CGFloat = 0.75
