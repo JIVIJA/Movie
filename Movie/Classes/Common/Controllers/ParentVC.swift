@@ -7,24 +7,63 @@
 //
 
 import UIKit
+import RxSwift
 
 class ParentVC: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    var iObject: Any?
+    var handler: ((Any, Bool) -> ())?
+    let disposeBag = DisposeBag()
+    
+    
+    //MARK:-
+    //MARK:- UIStatusBar
+    var isStatusBarHide = false {
+        didSet {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    var statusBarStyle = UIStatusBarStyle.default {
+        didSet {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
-    */
+    
+    override var prefersStatusBarHidden: Bool {
+        return isStatusBarHide
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return statusBarStyle
+    }
+    
+    //MARK:-
+    //MARK:- Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        switch self.view.tag {
+        case 100:
+            statusBarStyle = .lightContent
+            navigationController?.navigationBar.isTranslucent = false
+            navigationController?.navigationBar.barTintColor = CRGB(r: 30, g: 42, b: 81)
+        default:
+            statusBarStyle = .default
+            break
+        }
+    }
+    
+    
+    //MARK:-
+    //MARK:- General Methods
+    private func configure() {
+        
+    }
 
 }

@@ -8,6 +8,7 @@ target 'Movie' do
   # Pods for Movie
     pod 'Alamofire'
     pod 'Kingfisher'
+    pod 'Cosmos'
     pod 'RxSwift'
     pod 'RxCocoa'
     pod 'RxCoreData'
