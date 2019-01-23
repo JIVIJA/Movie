@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MovieTVCell" reuseIdentifier="HomeCell" id="UNp-cm-49r" customClass="HomeCVCell" customModule="Movie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qqn-VM-om5">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+                        <subviews>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3u-Av-hkR" customClass="GenericButton" customModule="Movie" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="250" width="200" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="CDs-lS-2wX"/>
+                                </constraints>
+                                <state key="normal" title="BUY TICKET">
+                                    <color key="titleColor" red="0.69583678250000003" green="0.55023217199999996" blue="0.1188472733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KVj-Uw-2w0">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRE-SALE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhn-0U-0wh" customClass="GenericLabel" customModule="Movie" customModuleProvider="target">
+                                <rect key="frame" x="8" y="8" width="90" height="30"/>
+                                <color key="backgroundColor" red="0.74509803919999995" green="0.58431372550000005" blue="0.33306620170000001" alpha="0.89950770550000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Fhn-0U-0wh" secondAttribute="height" multiplier="3:1" id="97s-gH-zFa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1012862697" green="0.17301392560000001" blue="0.31248313189999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KVj-Uw-2w0" firstAttribute="top" secondItem="Qqn-VM-om5" secondAttribute="top" id="1Zp-E3-YoT"/>
+                            <constraint firstItem="Fhn-0U-0wh" firstAttribute="width" secondItem="Qqn-VM-om5" secondAttribute="width" multiplier="0.45" id="2ai-LI-H7U"/>
+                            <constraint firstAttribute="trailing" secondItem="f3u-Av-hkR" secondAttribute="trailing" id="3Ns-Kp-TPw"/>
+                            <constraint firstAttribute="trailing" secondItem="KVj-Uw-2w0" secondAttribute="trailing" id="6u7-r9-bK8"/>
+                            <constraint firstItem="KVj-Uw-2w0" firstAttribute="leading" secondItem="Qqn-VM-om5" secondAttribute="leading" id="FQM-CK-J3h"/>
+                            <constraint firstItem="f3u-Av-hkR" firstAttribute="leading" secondItem="Qqn-VM-om5" secondAttribute="leading" id="K8H-qc-DJq"/>
+                            <constraint firstItem="f3u-Av-hkR" firstAttribute="top" secondItem="KVj-Uw-2w0" secondAttribute="bottom" id="Sl8-fi-MWj"/>
+                            <constraint firstItem="Fhn-0U-0wh" firstAttribute="top" secondItem="Qqn-VM-om5" secondAttribute="top" constant="8" id="dwz-LF-QUN"/>
+                            <constraint firstAttribute="bottom" secondItem="f3u-Av-hkR" secondAttribute="bottom" id="jVV-ln-Ffo"/>
+                            <constraint firstItem="Fhn-0U-0wh" firstAttribute="leading" secondItem="Qqn-VM-om5" secondAttribute="leading" constant="8" id="vdu-Pf-lgi"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Qqn-VM-om5" firstAttribute="top" secondItem="UNp-cm-49r" secondAttribute="top" id="L8g-Tt-LXM"/>
+                <constraint firstAttribute="bottom" secondItem="Qqn-VM-om5" secondAttribute="bottom" id="YWa-dp-nsQ"/>
+                <constraint firstAttribute="trailing" secondItem="Qqn-VM-om5" secondAttribute="trailing" id="nGO-dB-kwU"/>
+                <constraint firstItem="Qqn-VM-om5" firstAttribute="leading" secondItem="UNp-cm-49r" secondAttribute="leading" id="np7-E4-PR9"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VbJ-jf-RGq"/>
+            <connections>
+                <outlet property="btnBook" destination="f3u-Av-hkR" id="8fp-tz-yBG"/>
+                <outlet property="cnBtnBookHeight" destination="CDs-lS-2wX" id="NPd-Qs-Qrz"/>
+                <outlet property="imgPoster" destination="KVj-Uw-2w0" id="xSv-zk-twY"/>
+                <outlet property="lblPreSale" destination="Fhn-0U-0wh" id="2ep-fj-lPp"/>
+            </connections>
+            <point key="canvasLocation" x="92.799999999999997" y="52.173913043478265"/>
+        </collectionViewCell>
+    </objects>
+</document>

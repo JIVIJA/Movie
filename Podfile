@@ -13,6 +13,7 @@ target 'Movie' do
     pod 'RxCocoa'
     pod 'RxCoreData'
     pod 'RxDataSources'
+    pod 'ObjectMapper'
 
   target 'MovieTests' do
     inherit! :search_paths

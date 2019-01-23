@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-        window.rootViewController = ParentNVC(rootViewController: SearchVC(nibName: "SearchVC", bundle: Bundle.main))
+        window.rootViewController = ParentNVC(rootViewController: HomeVC(nibName: "HomeVC", bundle: Bundle.main))
         window.makeKeyAndVisible()
         return true
     }
