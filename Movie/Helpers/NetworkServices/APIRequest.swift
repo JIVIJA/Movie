@@ -44,15 +44,6 @@ extension APIRequest {
 }
 
 // MARK: -
-// MARK: - API URLs.
-
-struct APIUrl {
-    fileprivate static var movieListURL = URL(string: (APIRequest.baseURL + "home"))
-    fileprivate static var movieSearchURL = URL(string: (APIRequest.baseURL + "search"))
-}
-
-
-// MARK: -
 // MARK: - loggingRequest && loggingResponse Methods.
 extension APIRequest {
     
@@ -156,6 +147,15 @@ extension APIRequest {
     }
 }
 
+
+// MARK: -
+// MARK: - API URLs.
+struct APIUrl {
+    fileprivate static var movieListURL = URL(string: (APIRequest.baseURL + "home"))
+    fileprivate static var movieSearchURL = URL(string: (APIRequest.baseURL + "search"))
+    fileprivate static var movieLoadMoreURL = URL(string: (APIRequest.baseURL + "loadmore"))
+}
+
 // MARK: -
 // MARK: - APIs Methods.
 extension APIRequest {
@@ -174,6 +174,30 @@ extension APIRequest {
                 }
             }
             successCompletion?(nil, status)
+        }, failureCompletion: { (message) in
+            failureCompletion?(message)
+        })
+    }
+    
+    @discardableResult
+    func searchMovie(byKeyword keyword: String, offset: Int16, successCompletion: successCompletion, failureCompletion: failureCompletion) -> URLSessionTask? {
+        
+        let params = ["keyword": keyword, "offset": offset] as [String : Any]
+        
+        return APIRequest.GET(apiURL: APIUrl.movieSearchURL, param: params, successCompletion: { (response, status) in
+            successCompletion?(response, status)
+        }, failureCompletion: { (message) in
+            failureCompletion?(message)
+        })
+    }
+    
+    @discardableResult
+    func movieList(byKeyword keyword: String, type: String, offset: Int, successCompletion: successCompletion, failureCompletion: failureCompletion) -> URLSessionTask? {
+        
+        let params = ["keyword": keyword, "type": type, "offset": offset] as [String : Any]
+        
+        return APIRequest.GET(apiURL: APIUrl.movieLoadMoreURL, param: params, successCompletion: { (response, status) in
+            successCompletion?(response, status)
         }, failureCompletion: { (message) in
             failureCompletion?(message)
         })
