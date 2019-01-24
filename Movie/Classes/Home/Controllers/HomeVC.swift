@@ -27,8 +27,8 @@ class HomeVC: ParentVC {
     private var autoScrollTimer: Timer?
     private var needToStartTimer:Variable<Bool> = Variable(false)
     private let CELLWIDTH =  CScreenWidth * 70/100
-    private let  TRANSFORM_CELL_VALUE = CGAffineTransform(scaleX: 0.9, y: 0.9)
-    private let  TRANSFORM_CELL_VALUE_FOR_UPPER = CGAffineTransform(scaleX: 0.9, y: 0.9)
+    private let TRANSFORM_CELL_VALUE = CGAffineTransform(scaleX: 0.9, y: 0.9)
+    private let TRANSFORM_CELL_VALUE_FOR_UPPER = CGAffineTransform(scaleX: 0.9, y: 0.9)
     private let ANIMATION_SPEED = 0.3
     private var selectedIndexPath = IndexPath(row: 0, section: 0)
     private var nextIndex:Int? {
@@ -53,7 +53,7 @@ class HomeVC: ParentVC {
     
     //MARK:- General Methods
     private func configure() {
-        
+        title = "Movie"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(btnRightBarSearchClicked(_:)))
         
         // set delegate to access flowlayout methods
@@ -71,7 +71,6 @@ class HomeVC: ParentVC {
             if let arrMovieLists = try CAppdelegate?.persistentContainer.viewContext.fetch(fetchRequest) as? [MovieLists]{
                 HomeViewModel.shared.arrMovies.value = arrMovieLists
             }
-            
         } catch {
             print(error)
         }
@@ -131,7 +130,6 @@ class HomeVC: ParentVC {
     }
     
     @objc fileprivate func autoScroll() {
-        
         if let nextIndex = nextIndex {
              setScaleForItem(index: nextIndex)
             //showMovieDetails(index: nextIndex)
@@ -152,7 +150,6 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
         
         let pageWidth = CELLWIDTH;
         let currentOffset = Float(scrollView.contentOffset.x)
