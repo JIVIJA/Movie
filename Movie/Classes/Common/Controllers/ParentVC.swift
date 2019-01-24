@@ -16,7 +16,6 @@ class ParentVC: UIViewController {
     let disposeBag = DisposeBag()
     
     
-    //MARK:-
     //MARK:- UIStatusBar
     var isStatusBarHide = false {
         didSet {
@@ -38,7 +37,7 @@ class ParentVC: UIViewController {
         return statusBarStyle
     }
     
-    //MARK:-
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,14 +52,17 @@ class ParentVC: UIViewController {
             statusBarStyle = .lightContent
             navigationController?.navigationBar.isTranslucent = false
             navigationController?.navigationBar.barTintColor = CRGB(r: 30, g: 42, b: 81)
+            navigationController?.navigationBar.tintColor = .white
         default:
             statusBarStyle = .default
+            navigationController?.navigationBar.isTranslucent = false
+            navigationController?.navigationBar.barTintColor = .white
+            navigationController?.navigationBar.tintColor = CRGB(r: 30, g: 42, b: 81)
             break
         }
     }
     
     
-    //MARK:-
     //MARK:- General Methods
     private func configure() {
         

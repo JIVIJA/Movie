@@ -15,7 +15,7 @@ class ParentNVC: UINavigationController {
         
         //...
         self.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationBar.shadowImage = UIImage()
+//        self.navigationBar.shadowImage = UIImage()
     }
     
     open override var prefersStatusBarHidden: Bool {

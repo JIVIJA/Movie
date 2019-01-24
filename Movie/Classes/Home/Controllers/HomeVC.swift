@@ -44,6 +44,8 @@ class HomeVC: ParentVC {
     //MARK:- General Methods
     private func configure() {
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(btnRightBarSearchClicked(_:)))
+        
         movieCollectionViewFlowLayout = (collVHome.collectionViewLayout as! MovieCollectionViewFlowLayout)
         collVHome.decelerationRate = UIScrollView.DecelerationRate.fast
         movieCollectionViewFlowLayout.itemSize = CGSize(
@@ -86,4 +88,15 @@ class HomeVC: ParentVC {
         
     }
 
+}
+
+//MARK:-
+//MARK:- Action Events
+extension HomeVC {
+    
+    @objc func btnRightBarSearchClicked(_ barButtonItem: UIBarButtonItem) {
+        let presentingVC = ParentNVC(rootViewController: SearchVC(nibName: "SearchVC", bundle: Bundle.main))
+        present(presentingVC, animated: true, completion: nil)
+    }
+    
 }
