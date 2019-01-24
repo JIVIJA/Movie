@@ -24,7 +24,7 @@ class ListVC: ParentVC {
     }
     
     var searchKeyword = ""
-    fileprivate lazy var dataModel = { return MovieViewModel.shared }()
+    fileprivate lazy var dataModel = { return ListViewModel.shared }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +33,18 @@ class ListVC: ParentVC {
 
     //MARK:- General Methods
     func configure() {
+        
+        //...UISwipeGestureRecognizer
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handle(swipeGesture:)))
+        swipeLeft.direction = .left
+        tblMovies.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handle(swipeGesture:)))
+        swipeRight.direction = .right
+        tblMovies.addGestureRecognizer(swipeRight)
+        
+        
+        //...LoadData
         dataModel.searchMovies(byKeyword: searchKeyword)
         
         //...
@@ -103,5 +115,20 @@ extension ListVC {
             
         }
         
+    }
+    
+    @objc func handle(swipeGesture: UISwipeGestureRecognizer) {
+        switch swipeGesture.direction {
+        case .left:
+            if btnNowShowing.isSelected {
+               self.btnTabClicked(btnComingSoon)
+            }
+        case .right:
+            if btnComingSoon.isSelected {
+                self.btnTabClicked(btnNowShowing)
+            }
+        default:
+            break
+        }
     }
 }

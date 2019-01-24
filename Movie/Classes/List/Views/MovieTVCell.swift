@@ -48,7 +48,7 @@ extension MovieTVCell {
         lblMovieName.text = movie.title ?? ""
         lblAgeCategory.text = movie.ageCategory ?? ""
         lblMovieDescription.text = movie.movieDescription ?? ""
-        lblReleaseDate.text = MovieViewModel.shared.stringReleaseDate(fromTimeInterval: movie.releaseDate ?? 0)
+        lblReleaseDate.text = ListViewModel.shared.stringReleaseDate(fromTimeInterval: movie.releaseDate ?? 0)
         
         if let rate = movie.rate {
             //... Divide by 2. Because rate (1 to 10) to show in range(1 to 5)
