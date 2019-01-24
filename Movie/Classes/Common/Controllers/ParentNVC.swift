@@ -16,6 +16,9 @@ class ParentNVC: UINavigationController {
         //...
         self.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationBar.shadowImage = UIImage()
+        
+        //...
+        self.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .semibold)]
     }
     
     open override var prefersStatusBarHidden: Bool {
