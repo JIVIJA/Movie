@@ -25,6 +25,7 @@ class HomeVC: ParentVC {
     
     private var autoScrollTimer: Timer?
     private let CELLWIDTH =  CScreenWidth * 60/100
+    private let ITEMSPACEING = (CScreenWidth - ((CScreenWidth * CScreenWidth * 60/100)/CScreenWidth))/2
     private let TRANSFORM_CELL_VALUE = CGAffineTransform(scaleX: 0.9, y: 0.9)
     private let TRANSFORM_CELL_VALUE_FOR_UPPER = CGAffineTransform(scaleX: 0.9, y: 0.9)
     private let ANIMATION_SPEED = 0.3
@@ -150,12 +151,12 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsets(top: 0, left: (self.view.frame.size.width - ((self.view.frame.size.width * CELLWIDTH)/CScreenWidth))/2, bottom: 0, right: (self.view.frame.size.width - ((self.view.frame.size.width * CELLWIDTH)/CScreenWidth))/2);
+        return UIEdgeInsets(top: 0, left: ITEMSPACEING, bottom: 0, right: ITEMSPACEING)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        let pageWidth = CELLWIDTH;
+        let pageWidth = CELLWIDTH + ITEMSPACEING
         let currentOffset = Float(scrollView.contentOffset.x)
         let targetOffset = Float(targetContentOffset.pointee.x)
         var newTargetOffset = Float(0)
@@ -174,52 +175,53 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
         
         _ = Float(targetContentOffset.pointee.x) == currentOffset
         scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
-        let index : Int = Int(newTargetOffset / Float(pageWidth))
+        var index : Int = Int(newTargetOffset / Float(pageWidth))
+        if index > HomeViewModel.shared.arrMovies.value.count - 1 {
+            index = HomeViewModel.shared.arrMovies.value.count - 1
+        }
         self.setScaleForItem(index: index)
     }
     
     private func setScaleForItem(index : Int) {
-        if index < HomeViewModel.shared.arrMovies.value.count {
+        
+        selectedIndexPath = IndexPath(item: index, section: 0)
+        collVHome.scrollToItem(at: selectedIndexPath, at: .centeredHorizontally, animated: true)
+        showMovieDetail(index: index)
+        
+        if index == 0 {
             
-            selectedIndexPath = IndexPath(item: index, section: 0)
-            collVHome.scrollToItem(at: selectedIndexPath, at: .centeredHorizontally, animated: true)
-            showMovieDetail(index: index)
+            if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell {
+                UIView.animate(withDuration: ANIMATION_SPEED) {
+                    cell.transform = CGAffineTransform.identity
+                    cell.cnBtnBookHeight.constant = 40.0
+                }
+            }
             
-            if index == 0 {
-                
-                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell {
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = CGAffineTransform.identity
-                        cell.cnBtnBookHeight.constant = 40.0
-                    }
+            if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell {
+                UIView.animate(withDuration: ANIMATION_SPEED) {
+                    cell.transform = self.TRANSFORM_CELL_VALUE;
+                    cell.cnBtnBookHeight.constant = 0
                 }
-                
-                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell {
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = self.TRANSFORM_CELL_VALUE;
-                        cell.cnBtnBookHeight.constant = 0
-                    }
+            }
+        } else {
+            if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell{
+                UIView.animate(withDuration: ANIMATION_SPEED) {
+                    cell.transform = CGAffineTransform.identity;
+                    cell.cnBtnBookHeight.constant = 40.0
                 }
-            } else {
-                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell{
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = CGAffineTransform.identity;
-                        cell.cnBtnBookHeight.constant = 40.0
-                    }
+            }
+            
+            if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index-1, section: 0)) as? HomeCVCell{
+                UIView.animate(withDuration: ANIMATION_SPEED) {
+                    cell.transform = self.TRANSFORM_CELL_VALUE;
+                    cell.cnBtnBookHeight.constant = 0
                 }
-                
-                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index-1, section: 0)) as? HomeCVCell{
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = self.TRANSFORM_CELL_VALUE;
-                        cell.cnBtnBookHeight.constant = 0
-                    }
-                }
-                
-                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell{
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = self.TRANSFORM_CELL_VALUE;
-                        cell.cnBtnBookHeight.constant = 0
-                    }
+            }
+            
+            if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell{
+                UIView.animate(withDuration: ANIMATION_SPEED) {
+                    cell.transform = self.TRANSFORM_CELL_VALUE;
+                    cell.cnBtnBookHeight.constant = 0
                 }
             }
         }
