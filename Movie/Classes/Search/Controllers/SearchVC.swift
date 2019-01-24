@@ -84,6 +84,7 @@ class SearchVC: ParentVC {
         //...UITableView row selection.
         Observable.zip(tblResults.rx.itemSelected, tblResults.rx.modelSelected(SearchModel.self)).bind { indexPath, searchModel in
                 let listVC = ListVC(nibName: "ListVC", bundle: nil)
+                listVC.searchKeyword = searchModel.keyword
                 self.navigationController?.pushViewController(listVC, animated: true)
             }.disposed(by: disposeBag)
     }
@@ -98,6 +99,10 @@ extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let keyword = searchBar.text, !keyword.isBlank {
             SearchViewModel.shared.add(keyword: keyword)
+            
+            let listVC = ListVC(nibName: "ListVC", bundle: nil)
+            listVC.searchKeyword = keyword
+            navigationController?.pushViewController(listVC, animated: true)
         }
     }
     
