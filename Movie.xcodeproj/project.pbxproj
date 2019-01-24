@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5C53FCEB21F72144007B7C14 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53FCE921F72144007B7C14 /* HomeVC.swift */; };
 		5C53FCEC21F72144007B7C14 /* HomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C53FCEA21F72144007B7C14 /* HomeVC.xib */; };
-		5C53FCEF21F72E90007B7C14 /* MovieCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53FCEE21F72E90007B7C14 /* MovieCollectionViewFlowLayout.swift */; };
 		5C53FCF221F72FBA007B7C14 /* HomeCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53FCF021F72FBA007B7C14 /* HomeCVCell.swift */; };
 		5C53FCF321F72FBA007B7C14 /* HomeCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C53FCF121F72FBA007B7C14 /* HomeCVCell.xib */; };
 		5C53FCFE21F75A7D007B7C14 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53FCFD21F75A7C007B7C14 /* HomeModel.swift */; };
@@ -72,7 +71,6 @@
 		4A00980F613849792FC9862C /* Pods-MovieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieTests/Pods-MovieTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C53FCE921F72144007B7C14 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		5C53FCEA21F72144007B7C14 /* HomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeVC.xib; sourceTree = "<group>"; };
-		5C53FCEE21F72E90007B7C14 /* MovieCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		5C53FCF021F72FBA007B7C14 /* HomeCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCVCell.swift; sourceTree = "<group>"; };
 		5C53FCF121F72FBA007B7C14 /* HomeCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCVCell.xib; sourceTree = "<group>"; };
 		5C53FCFD21F75A7C007B7C14 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 		5C53FCED21F72E53007B7C14 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5C53FCEE21F72E90007B7C14 /* MovieCollectionViewFlowLayout.swift */,
 				5C53FCF021F72FBA007B7C14 /* HomeCVCell.swift */,
 				5C53FCF121F72FBA007B7C14 /* HomeCVCell.xib */,
 			);
@@ -510,7 +507,6 @@
 				785DCB4C21F6F3AE00CB6AE9 /* Frameworks */,
 				785DCB4D21F6F3AE00CB6AE9 /* Resources */,
 				6FF1CC1B37AEA74C22E84162 /* [CP] Embed Pods Frameworks */,
-				B4ACA4627378FCB5E3F10053 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -529,8 +525,6 @@
 				785DCB6221F6F3AF00CB6AE9 /* Sources */,
 				785DCB6321F6F3AF00CB6AE9 /* Frameworks */,
 				785DCB6421F6F3AF00CB6AE9 /* Resources */,
-				B85B89ED7952CDF30658D331 /* [CP] Embed Pods Frameworks */,
-				B60C7A700ADAB631DAE995EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -550,8 +544,6 @@
 				785DCB6D21F6F3AF00CB6AE9 /* Sources */,
 				785DCB6E21F6F3AF00CB6AE9 /* Frameworks */,
 				785DCB6F21F6F3AF00CB6AE9 /* Resources */,
-				A9B581E4EE01C81CD7D5110F /* [CP] Embed Pods Frameworks */,
-				437CEFB26D8900A776CD3FA2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -676,21 +668,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		437CEFB26D8900A776CD3FA2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovieUITests/Pods-MovieUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6FF1CC1B37AEA74C22E84162 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -723,66 +700,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Movie/Pods-Movie-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A9B581E4EE01C81CD7D5110F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovieUITests/Pods-MovieUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B4ACA4627378FCB5E3F10053 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Movie/Pods-Movie-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B60C7A700ADAB631DAE995EA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovieTests/Pods-MovieTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B85B89ED7952CDF30658D331 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovieTests/Pods-MovieTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E357B39ECE945C43FDCCE24A /* [CP] Check Pods Manifest.lock */ = {
@@ -823,7 +740,6 @@
 				78996F9F21F72B1A0008CB90 /* MovieTVCell.swift in Sources */,
 				785DCBD721F711C000CB6AE9 /* GenericLabel.swift in Sources */,
 				785DCBA021F6FD3400CB6AE9 /* ParentVC.swift in Sources */,
-				5C53FCEF21F72E90007B7C14 /* MovieCollectionViewFlowLayout.swift in Sources */,
 				785DCBB021F6FE1100CB6AE9 /* SearchTVCell.swift in Sources */,
 				78996F9821F726940008CB90 /* ListViewModel.swift in Sources */,
 				785DCB5B21F6F3AE00CB6AE9 /* Movie.xcdatamodeld in Sources */,
@@ -1009,7 +925,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Movie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Movie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1028,7 +947,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Movie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Movie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1045,7 +967,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MovieTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MovieTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1062,7 +988,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MovieTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MovieTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1078,7 +1008,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MovieUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MovieUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1094,7 +1028,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MovieUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MovieUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

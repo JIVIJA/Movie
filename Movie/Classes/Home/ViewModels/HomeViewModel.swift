@@ -27,7 +27,7 @@ class  HomeViewModel {
     // MARK: -
     // MARK: - Rx-Swift Observable.
     
-    var arrMovies:Variable<[MovieList]> = Variable([])
+    var arrMovies:Variable<[MovieLists]> = Variable([])
     
 }
 

@@ -15,10 +15,13 @@ class HomeCVCell: UICollectionViewCell {
     @IBOutlet fileprivate weak var btnBook: UIButton!
     @IBOutlet fileprivate weak var lblPreSale: UILabel!
     @IBOutlet fileprivate weak var imgPoster: UIImageView!
-    @IBOutlet fileprivate weak var cnBtnBookHeight: NSLayoutConstraint!
+    @IBOutlet weak var cnBtnBookHeight: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
+        
     }
 
     override func layoutSubviews() {
@@ -42,5 +45,4 @@ extension HomeCVCell {
             imgPoster.kf.setImage(with: URL(string: posterPath))
         }
     }
-    
 }
