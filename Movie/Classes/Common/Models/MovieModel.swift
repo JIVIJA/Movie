@@ -55,7 +55,7 @@ extension MovieModel: Persistable {
     typealias T = NSManagedObject
     
     static var entityName: String {
-        return "MovieLists"
+        return "Movie"
     }
     
     static var primaryAttributeName: String {
@@ -65,7 +65,7 @@ extension MovieModel: Persistable {
     init(entity: T) {
         id                  = entity.value(forKey: "id") as? String
         title               = entity.value(forKey: "title") as? String
-//        genres              = entity.value(forKey: "genres") as? [Any]
+        genres              = entity.value(forKey: "genres") as? [Any]
         ageCategory         = entity.value(forKey: "ageCategory") as? String
         rate                = entity.value(forKey: "rate") as? Double
         releaseDate         = entity.value(forKey: "releaseDate") as? Double

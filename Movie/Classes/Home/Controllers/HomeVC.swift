@@ -19,7 +19,7 @@ class HomeVC: ParentVC {
     @IBOutlet fileprivate weak var lblMovieType: UILabel!
     @IBOutlet fileprivate weak var collVHome: UICollectionView!{
         didSet {
-            collVHome.register(UINib(nibName: "HomeCVCell", bundle: Bundle.main), forCellWithReuseIdentifier: "HomeCell")
+            collVHome.register(UINib(nibName: "HomeCVCell", bundle: Bundle.main), forCellWithReuseIdentifier: "HomeCVCell")
         }
     }
     
@@ -36,78 +36,87 @@ class HomeVC: ParentVC {
         return nil
     }
     
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
     
     //MARK:- General Methods
     private func configure() {
         title = "Movie"
+        
+        //...
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(btnRightBarSearchClicked(_:)))
         
-        // set delegate to access flowlayout methods
-        collVHome.rx.setDelegate(self).disposed(by: disposeBag)
-        self.activityIndicator.startAnimating()
-        HomeViewModel.shared.loadMovieLists()
+        //...Load Data
+        HomeViewModel.shared.loadMovies()
         HomeViewModel.shared.getAllLocalMovieData()
+        
+        //... Set delegate to access flowlayout methods
+        collVHome.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        //...
         addObserverAndSubscriber()
     }
     
     private func addObserverAndSubscriber() {
         
-        let animatedDataSource = RxCollectionViewSectionedAnimatedDataSource<AnimatableSectionModel<String,MovieList>>(configureCell: { dateSource, collectionView, indexPath, movieLists in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCell", for: indexPath) as? HomeCVCell else{
+        let animatedDataSource = RxCollectionViewSectionedAnimatedDataSource<AnimatableSectionModel<String, MovieModel>>(configureCell: { dateSource, collectionView, indexPath, movieModel in
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCVCell", for: indexPath) as? HomeCVCell else{
                 return UICollectionViewCell()
             }
+            
             self.initializeTimer()
             self.activityIndicator.stopAnimating()
+            self.selectedIndexPath == indexPath ? self.showMovieDetail(index: indexPath.row) : nil
+            
             cell.transform = self.selectedIndexPath == indexPath ? CGAffineTransform.identity : self.TRANSFORM_CELL_VALUE
             cell.cnBtnBookHeight.constant = self.selectedIndexPath == indexPath ? 40.0 : 0
-            self.selectedIndexPath == indexPath ? self.showMovieDetails(index: indexPath.row) : nil
-            cell.configureCell(movieList: movieLists)
+            cell.configureCell(movieModel: movieModel)
+            
             return cell
         })
         
         
         HomeViewModel.shared.needToStartTimer.asObservable().subscribe(onNext: { (needToStartTimer) in
             needToStartTimer ? self.initializeTimer() : self.resetTimer()
-        }, onError: nil, onCompleted: nil).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         //...Creates and executes a fetch request and returns the fetched objects as an Observable array of Persistable.
-        
-        CAppdelegate?.persistentContainer.viewContext.rx.entities(MovieList.self, sortDescriptors: [NSSortDescriptor(key: "id", ascending: false)]).map { movieList in
+        CAppdelegate?.persistentContainer.viewContext.rx.entities(MovieModel.self, sortDescriptors: [NSSortDescriptor(key: "id", ascending: false)]).map { movieList in
             [AnimatableSectionModel(model: "", items: movieList)]
             }.bind(to: collVHome.rx.items(dataSource: animatedDataSource)).disposed(by: disposeBag)
         
-        //.. Keep Observing for scrollView's Begin Dragging Updates for stoping the auto-scroll.
+        
+        
+        //...Keep Observing for scrollView's Begin Dragging Updates for stoping the auto-scroll.
         collVHome.rx.willBeginDragging.subscribe(onNext: { (_) in
             HomeViewModel.shared.needToStartTimer.value = false
         }, onError: nil, onCompleted: nil).disposed(by: disposeBag)
         
         
-        //.. Keep Observing for scrollView's End Decelerating Updates for reset the auto-scroll & Showing Movie-Details.
+        
+        //...Keep Observing for scrollView's End Decelerating Updates for reset the auto-scroll & Showing Movie-Details.
         collVHome.rx.didEndDecelerating.subscribe(onNext: { (_) in
             HomeViewModel.shared.needToStartTimer.value = true
         }, onError: nil, onCompleted: nil).disposed(by: disposeBag)
         
     }
     
-    fileprivate func showMovieDetails(index:Int) {
-        lblMovieName.text = HomeViewModel.shared.showMovieDetails(index: index).strName
-        lblMovieType.text = HomeViewModel.shared.showMovieDetails(index: index).strType
+    fileprivate func showMovieDetail(index:Int) {
+        let movieTupple = HomeViewModel.shared.showMovieDetail(index: index)
+        lblMovieName.text = movieTupple.strName
+        lblMovieType.text = movieTupple.strType
     }
     
 }
 
+//MARK:-
 //MARK:- Setup Timer for Auto update screen
-
 extension HomeVC {
     
     private func initializeTimer() {
@@ -130,8 +139,8 @@ extension HomeVC {
     }
 }
 
-//MARK:- Collectionview flowlayout and scroll methods
-
+//MARK:-
+//MARK:- UICollectionViewDelegateFlowLayout
 extension HomeVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -170,41 +179,43 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     }
     
     private func setScaleForItem(index : Int) {
-        if index < HomeViewModel.shared.arrMovies.value.count{
+        if index < HomeViewModel.shared.arrMovies.value.count {
             
             selectedIndexPath = IndexPath(item: index, section: 0)
             collVHome.scrollToItem(at: selectedIndexPath, at: .centeredHorizontally, animated: true)
-            showMovieDetails(index: index)
-            if index == 0{
+            showMovieDetail(index: index)
+            
+            if index == 0 {
                 
-                if let cell : HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell{
+                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell {
+                    UIView.animate(withDuration: ANIMATION_SPEED) {
+                        cell.transform = CGAffineTransform.identity
+                        cell.cnBtnBookHeight.constant = 40.0
+                    }
+                }
+                
+                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell {
+                    UIView.animate(withDuration: ANIMATION_SPEED) {
+                        cell.transform = self.TRANSFORM_CELL_VALUE;
+                        cell.cnBtnBookHeight.constant = 0
+                    }
+                }
+            } else {
+                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell{
                     UIView.animate(withDuration: ANIMATION_SPEED) {
                         cell.transform = CGAffineTransform.identity;
                         cell.cnBtnBookHeight.constant = 40.0
                     }
                 }
                 
-                if let cell : HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell{
+                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index-1, section: 0)) as? HomeCVCell{
                     UIView.animate(withDuration: ANIMATION_SPEED) {
                         cell.transform = self.TRANSFORM_CELL_VALUE;
                         cell.cnBtnBookHeight.constant = 0
-                    }
-                }
-            }else{
-                if let cell : HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index, section: 0)) as? HomeCVCell{
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = CGAffineTransform.identity;
-                        cell.cnBtnBookHeight.constant = 40.0
                     }
                 }
                 
-                if let cell : HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index-1, section: 0)) as? HomeCVCell{
-                    UIView.animate(withDuration: ANIMATION_SPEED) {
-                        cell.transform = self.TRANSFORM_CELL_VALUE;
-                        cell.cnBtnBookHeight.constant = 0
-                    }
-                }
-                if let cell : HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell{
+                if let cell: HomeCVCell  = collVHome.cellForItem(at: IndexPath(item: index+1, section: 0)) as? HomeCVCell{
                     UIView.animate(withDuration: ANIMATION_SPEED) {
                         cell.transform = self.TRANSFORM_CELL_VALUE;
                         cell.cnBtnBookHeight.constant = 0

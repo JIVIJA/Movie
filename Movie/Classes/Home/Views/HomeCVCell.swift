@@ -21,7 +21,6 @@ class HomeCVCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
-        
     }
 
     override func layoutSubviews() {
@@ -31,16 +30,14 @@ class HomeCVCell: UICollectionViewCell {
     }
 }
 
-// MARK: -
-// MARK: - General Methods.
-
 extension HomeCVCell {
-    func configureCell(movieList:MovieList) {
+    func configureCell(movieModel: MovieModel) {
         
-        if let presaleFlag = movieList.presale_flag {
+        if let presaleFlag = movieModel.presaleFlag {
             lblPreSale.isHidden = presaleFlag == 0
         }
-        if let posterPath = movieList.poster_path {
+        
+        if let posterPath = movieModel.posterPath {
             imgPoster.kf.indicatorType = .activity
             imgPoster.kf.setImage(with: URL(string: posterPath))
         }

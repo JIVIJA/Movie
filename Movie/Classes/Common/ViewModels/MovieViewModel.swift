@@ -36,13 +36,6 @@ class MovieViewModel {
 
 extension MovieViewModel {
     
-    func loadMovieLists() {
-        
-        _ = APIRequest.shared.movieLists(successCompletion: { (response, status) in
-            
-        }, failureCompletion: nil)
-    }
-    
     func searchMovies(byKeyword keyword: String) {
         
         if let api = apiSearchMovies, api.state == .running {

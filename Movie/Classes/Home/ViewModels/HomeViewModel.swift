@@ -10,52 +10,45 @@ import Foundation
 import RxSwift
 import CoreData
 
-class  HomeViewModel {
+class HomeViewModel {
     
-    // MARK: -
     // MARK: - Singleton.
     private init() {}
     
-    private static var homeViewModel: HomeViewModel = {
-        let homeViewModel = HomeViewModel()
-        return homeViewModel
+    static var shared: HomeViewModel = {
+        return HomeViewModel()
     }()
     
-    static var shared: HomeViewModel {
-        return homeViewModel
-    }
     
-    // MARK: -
-    // MARK: - Rx-Swift Observable.
-    
-    var arrMovies:Variable<[MovieLists]> = Variable([])
-    var needToStartTimer:Variable<Bool> = Variable(false)
+    //MARK:- Rx-Swift Observable.
+    var arrMovies: Variable<[Movie]> = Variable([])
+    var needToStartTimer: Variable<Bool> = Variable(false)
 }
-
-
-// MARK: -
-// MARK: - General Methods.
 
 extension HomeViewModel {
     
-    func loadMovieLists() {
-        
-        _ = APIRequest.shared.movieLists(successCompletion: { (response, status) in
+    func loadMovies() {
+        APIRequest.shared.movieList(successCompletion: { (response, status) in
             self.getAllLocalMovieData()
         }, failureCompletion: nil)
     }
     
-    func showMovieDetails(index:Int) -> (strName:String , strType:String) {
-        let movieDetails = arrMovies.value[index]
-        return (movieDetails.title ?? "" , movieDetails.genre_ids as! String )
+    func showMovieDetail(index: Int) -> (strName: String , strType: String) {
+        let movie = arrMovies.value[index]
+        
+        if let genres = movie.genres as? [[String: AnyObject]] {
+            return (movie.title ?? "", genres.map({($0["name"] as? String) ?? ""}).joined(separator: ", "))
+        }
+        
+        return (movie.title ?? "", "")
     }
     
     func getAllLocalMovieData() {
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MovieLists")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Movie")
         
         do {
-            if let arrMovieLists = try CAppdelegate?.persistentContainer.viewContext.fetch(fetchRequest) as? [MovieLists]{
+            if let arrMovieLists = try CAppdelegate?.persistentContainer.viewContext.fetch(fetchRequest) as? [Movie] {
                 arrMovies.value = arrMovieLists
             }
         } catch {

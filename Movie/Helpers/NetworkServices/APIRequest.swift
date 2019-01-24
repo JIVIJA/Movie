@@ -160,16 +160,13 @@ struct APIUrl {
 // MARK: - APIs Methods.
 extension APIRequest {
     
-    func movieLists(successCompletion: successCompletion , failureCompletion: failureCompletion) -> URLSessionTask?{
+    @discardableResult
+    func movieList(successCompletion: successCompletion, failureCompletion: failureCompletion) -> URLSessionTask? {
         return APIRequest.GET(apiURL: APIUrl.movieListURL, param: nil, successCompletion: { (response, status) in
             if let responseDict = response as? [String:Any] , responseDict.keys.count > 0 {
-                
-                let CSharedApplication = UIApplication.shared
-                let CAppdelegate = CSharedApplication.delegate as? AppDelegate
-                
-                if let result = responseDict["results"] as? [[String:AnyObject]]{
+                if let result = responseDict["results"] as? [[String:AnyObject]] {
                     for dataDict in result{
-                        try? CAppdelegate?.persistentContainer.viewContext.rx.update(MovieList(JSON: dataDict)!)
+                        try? CAppdelegate?.persistentContainer.viewContext.rx.update(MovieModel(JSON: dataDict)!)
                     }
                 }
             }
