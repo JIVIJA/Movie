@@ -53,6 +53,9 @@ class HomeVC: ParentVC {
     
     //MARK:- General Methods
     private func configure() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(btnRightBarSearchClicked(_:)))
+        
         // set delegate to access flowlayout methods
         collVHome.rx.setDelegate(self).disposed(by: disposeBag)
         self.activityIndicator.startAnimating()
@@ -144,38 +147,38 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    
+        
         return UIEdgeInsets(top: 0, left: (self.view.frame.size.width - ((self.view.frame.size.width * CELLWIDTH)/CScreenWidth))/2, bottom: 0, right: (self.view.frame.size.width - ((self.view.frame.size.width * CELLWIDTH)/CScreenWidth))/2);
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
         
-            let pageWidth = CELLWIDTH;
-            let currentOffset = Float(scrollView.contentOffset.x)
-            let targetOffset = Float(targetContentOffset.pointee.x)
-            var newTargetOffset = Float(0)
-
-            if targetOffset > currentOffset {
-                newTargetOffset = ceilf(currentOffset / Float(pageWidth)) * Float(pageWidth)
-            } else {
-                newTargetOffset = floorf(currentOffset / Float(pageWidth)) * Float(pageWidth)
-            }
-
-            if newTargetOffset < 0 {
-                newTargetOffset = 0
-            } else if newTargetOffset > Float(scrollView.contentSize.width) {
-                newTargetOffset = Float(scrollView.contentSize.width)
-            }
-
-            _ = Float(targetContentOffset.pointee.x) == currentOffset
-            scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
-            let index : Int = Int(newTargetOffset / Float(pageWidth))
-            self.setScaleForItem(index: index)
+        
+        let pageWidth = CELLWIDTH;
+        let currentOffset = Float(scrollView.contentOffset.x)
+        let targetOffset = Float(targetContentOffset.pointee.x)
+        var newTargetOffset = Float(0)
+        
+        if targetOffset > currentOffset {
+            newTargetOffset = ceilf(currentOffset / Float(pageWidth)) * Float(pageWidth)
+        } else {
+            newTargetOffset = floorf(currentOffset / Float(pageWidth)) * Float(pageWidth)
         }
-
+        
+        if newTargetOffset < 0 {
+            newTargetOffset = 0
+        } else if newTargetOffset > Float(scrollView.contentSize.width) {
+            newTargetOffset = Float(scrollView.contentSize.width)
+        }
+        
+        _ = Float(targetContentOffset.pointee.x) == currentOffset
+        scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
+        let index : Int = Int(newTargetOffset / Float(pageWidth))
+        self.setScaleForItem(index: index)
+    }
+    
     private func setScaleForItem(index : Int) {
-
+        
         selectedIndexPath = IndexPath(item: index, section: 0)
         collVHome.scrollToItem(at: selectedIndexPath, at: .centeredHorizontally, animated: true)
         
@@ -217,4 +220,16 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
             }
         }
     }
+}
+
+
+//MARK:-
+//MARK:- Action Events
+extension HomeVC {
+    
+    @objc func btnRightBarSearchClicked(_ barButtonItem: UIBarButtonItem) {
+        let presentingVC = ParentNVC(rootViewController: SearchVC(nibName: "SearchVC", bundle: Bundle.main))
+        present(presentingVC, animated: true, completion: nil)
     }
+    
+}
