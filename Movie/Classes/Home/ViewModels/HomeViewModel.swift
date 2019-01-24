@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import CoreData
 
 class  HomeViewModel {
     
@@ -28,7 +29,7 @@ class  HomeViewModel {
     // MARK: - Rx-Swift Observable.
     
     var arrMovies:Variable<[MovieLists]> = Variable([])
-    
+    var needToStartTimer:Variable<Bool> = Variable(false)
 }
 
 
@@ -40,7 +41,25 @@ extension HomeViewModel {
     func loadMovieLists() {
         
         _ = APIRequest.shared.movieLists(successCompletion: { (response, status) in
-            
+            self.getAllLocalMovieData()
         }, failureCompletion: nil)
+    }
+    
+    func showMovieDetails(index:Int) -> (strName:String , strType:String) {
+        let movieDetails = arrMovies.value[index]
+        return (movieDetails.title ?? "" , movieDetails.genre_ids as! String )
+    }
+    
+    func getAllLocalMovieData() {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MovieLists")
+        
+        do {
+            if let arrMovieLists = try CAppdelegate?.persistentContainer.viewContext.fetch(fetchRequest) as? [MovieLists]{
+                arrMovies.value = arrMovieLists
+            }
+        } catch {
+            print(error)
+        }
     }
 }

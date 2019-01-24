@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Genres" representedClassName="Genres" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="movieLists" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MovieLists" inverseName="genres" inverseEntity="MovieLists" syncable="YES"/>
-    </entity>
     <entity name="MovieLists" representedClassName="MovieLists" syncable="YES" codeGenerationType="class">
+        <attribute name="genre_ids" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="poster_path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="presale_flag" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="rate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="release_date" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Genres" inverseName="movieLists" inverseEntity="Genres" syncable="YES"/>
     </entity>
     <entity name="SearchHistory" representedClassName="SearchHistory" syncable="YES" codeGenerationType="class">
         <attribute name="keyword" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,6 +16,5 @@
     <elements>
         <element name="MovieLists" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="SearchHistory" positionX="-63" positionY="27" width="128" height="75"/>
-        <element name="Genres" positionX="-63" positionY="27" width="128" height="90"/>
     </elements>
 </model>
